@@ -21,4 +21,5 @@ jobs:
             git config --global --add safe.directory /home/user/odoo-18-docker-compose/addons
             cd /home/user/odoo-18-docker-compose/addons
             git pull origin main
+            docker restart odoo-18-docker-compose-odoo18-1
             
