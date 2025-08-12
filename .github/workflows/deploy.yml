@@ -20,4 +20,4 @@ jobs:
           script: |
             cd /home/user/odoo-18-docker-compose/addons
             git pull origin main
-            docker-compose restart odoo
+            
