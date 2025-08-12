@@ -18,6 +18,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
           script: |
+            git config --global --add safe.directory /home/user/odoo-18-docker-compose/addons
             cd /home/user/odoo-18-docker-compose/addons
             git pull origin main
             
