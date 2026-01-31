@@ -1,0 +1,32 @@
+name: Deploy 
+
+on:
+  push:
+    branches:
+      - dev-nabil
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: mazen
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/altahtheeb-odoo19/nabil/odoo-19-nabil/addons/extra-addons
+            git fetch origin dev-nabil
+            git reset --hard origin/dev-nabil
+            
+            # Mise à jour Odoo (on ignore l'erreur inotify si elle revient)
+            docker exec odoo-19-nabil-odoo19-1 odoo -u all --stop-after-init || true
+            
+            # Redémarrage propre du conteneur
+            docker restart odoo-19-nabil-odoo19-1
